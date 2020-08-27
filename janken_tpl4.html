@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<script src="js/jquery-2.1.3.min.js"></script>
+<link rel="stylesheet" href="css/sample.css">
+<link rel="stylesheet" href="css\nav_bar.css">
+<title>じゃんけん</title>
+</head>
+<body>
+
+<header>
+
+  <h1>神経衰弱Ver0</h1>
+</header>
+
+<main>
+  <p>＜説明＞<br>
+    スタートボタンを押すと一定時間、下のマス目に数字が表示されます。<br>
+    「指示」に書かれたマス目のみをクリックしてください。<br>
+  </p>
+  <div id="gamestart_btn">ゲームスタート</div>
+  <div id="Instructions">指示：<span id="target"></span></div>
+  <div class="tile_row">
+    <div class="tile" id="tile_1"><span id="tile_1_text"></span></div>
+    <div class="tile" id="tile_2"><span id="tile_2_text"></span></div>
+    <div class="tile" id="tile_3"><span id="tile_3_text"></span></div>
+    <div class="tile" id="tile_4"><span id="tile_4_text"></span></div>
+    <div class="tile" id="tile_5"><span id="tile_5_text"></span></div>
+    <div class="tile" id="tile_6"><span id="tile_6_text"></span></div>
+    <div class="tile" id="tile_7"><span id="tile_7_text"></span></div>
+    <div class="tile" id="tile_8"><span id="tile_8_text"></span></div>
+    <div class="tile" id="tile_9"><span id="tile_9_text"></span></div>
+    <div class="tile" id="tile_10"><span id="tile_10_text"></span></div>
+  </div>
+  <div class="tile_row">
+    <div class="tile" id="tile_11"><span id="tile_11_text">　　　</span></div>
+    <div class="tile" id="tile_12"><span id="tile_12_text"></span></div>
+    <div class="tile" id="tile_13"><span id="tile_13_text"></span></div>
+    <div class="tile" id="tile_14"><span id="tile_14_text"></span></div>
+    <div class="tile" id="tile_15"><span id="tile_15_text"></span></div>
+    <div class="tile" id="tile_16"><span id="tile_16_text"></span></div>
+    <div class="tile" id="tile_17"><span id="tile_17_text"></span></div>
+    <div class="tile" id="tile_18"><span id="tile_18_text"></span></div>
+    <div class="tile" id="tile_19"><span id="tile_19_text"></span></div>
+    <div class="tile" id="tile_20"><span id="tile_20_text"></span></div>
+  </div>
+  <div>今回の選択結果は...「<span id="result"></span>」</div>
+  <div>通算結果：正解・・・<span id="correct_time"></span>回　間違い・・・<span id="mistake_time"></span>回　「指示」のマスの総数・・・<span id="result_num"></span>回</div>
+</main>
+
+<footer></footer>
+<script>
+// // 初期値、初期表示の設定
+
+let correct_time = 0;
+let mistake_time = 0;
+
+let alert_num = 0;
+
+$("#gamestart_btn").one("click",function(){
+    game();
+})
+
+function game(){
+  // どの数字を押したら正解かを決る
+  const target_num = Math.ceil( Math.random() * 3);
+  // 各タイルの数字を決める
+  const tile_1_num = Math.ceil( Math.random() * 3);
+  const tile_2_num = Math.ceil( Math.random() * 3);
+  const tile_3_num = Math.ceil( Math.random() * 3);
+  const tile_4_num = Math.ceil( Math.random() * 3);
+  const tile_5_num = Math.ceil( Math.random() * 3);
+  const tile_6_num = Math.ceil( Math.random() * 3);
+  const tile_7_num = Math.ceil( Math.random() * 3);
+  const tile_8_num = Math.ceil( Math.random() * 3);
+  const tile_9_num = Math.ceil( Math.random() * 3);
+  const tile_10_num = Math.ceil( Math.random() * 3);
+  const tile_11_num = Math.ceil( Math.random() * 3);
+  const tile_12_num = Math.ceil( Math.random() * 3);
+  const tile_13_num = Math.ceil( Math.random() * 3);
+  const tile_14_num = Math.ceil( Math.random() * 3);
+  const tile_15_num = Math.ceil( Math.random() * 3);
+  const tile_16_num = Math.ceil( Math.random() * 3);
+  const tile_17_num = Math.ceil( Math.random() * 3);
+  const tile_18_num = Math.ceil( Math.random() * 3);
+  const tile_19_num = Math.ceil( Math.random() * 3);
+  const tile_20_num = Math.ceil( Math.random() * 3);
+
+
+  let tile_num_array = [tile_1_num,tile_2_num,tile_3_num,tile_4_num,tile_5_num,tile_6_num,tile_7_num,tile_8_num,tile_9_num,tile_10_num,tile_11_num,tile_12_num,tile_13_num,tile_14_num,tile_15_num,tile_16_num,tile_17_num,tile_18_num,tile_19_num,tile_20_num]
+  let result_num = 0;
+  for(let i = 0; i < tile_num_array.length; ++i){
+      if(tile_num_array[i] == target_num)
+      result_num++;
+  }
+
+  // 総正解数の表示をする
+  $("#result_num").html(result_num);
+
+  // 正解数などの数字をhtml上に表示する
+  count_display();
+
+  // どの数字のタイルをクリックするのかを表示する
+  let target_text = target_num + "のマスをクリックしてください"
+  $("#target").html(target_text);
+  // 各タイルの数字をhtml上に表示させる
+  $("#tile_1_text").html(tile_1_num);
+  $("#tile_1_text").fadeOut(5000);
+  $("#tile_2_text").html(tile_2_num);
+  $("#tile_2_text").fadeOut(5000);
+  $("#tile_3_text").html(tile_3_num);
+  $("#tile_3_text").fadeOut(5000);
+  $("#tile_4_text").html(tile_4_num);
+  $("#tile_4_text").fadeOut(5000);
+  $("#tile_5_text").html(tile_5_num);
+  $("#tile_5_text").fadeOut(5000);  
+  $("#tile_6_text").html(tile_6_num);
+  $("#tile_6_text").fadeOut(5000);
+  $("#tile_7_text").html(tile_7_num);
+  $("#tile_7_text").fadeOut(5000);  
+  $("#tile_8_text").html(tile_8_num);
+  $("#tile_8_text").fadeOut(5000);  
+  $("#tile_9_text").html(tile_9_num);
+  $("#tile_9_text").fadeOut(5000);  
+  $("#tile_10_text").html(tile_10_num);
+  $("#tile_10_text").fadeOut(5000);  
+  $("#tile_11_text").html(tile_11_num);
+  $("#tile_11_text").fadeOut(5000);  
+  $("#tile_12_text").html(tile_12_num);
+  $("#tile_12_text").fadeOut(5000);  
+  $("#tile_13_text").html(tile_13_num);
+  $("#tile_13_text").fadeOut(5000);  
+  $("#tile_14_text").html(tile_14_num);
+  $("#tile_14_text").fadeOut(5000);  
+  $("#tile_15_text").html(tile_15_num);
+  $("#tile_15_text").fadeOut(5000);  
+  $("#tile_16_text").html(tile_16_num);
+  $("#tile_16_text").fadeOut(5000);  
+  $("#tile_17_text").html(tile_17_num);
+  $("#tile_17_text").fadeOut(5000);  
+  $("#tile_18_text").html(tile_18_num);
+  $("#tile_18_text").fadeOut(5000);  
+  $("#tile_19_text").html(tile_19_num);
+  $("#tile_19_text").fadeOut(5000);  
+  $("#tile_20_text").html(tile_20_num);
+  $("#tile_20_text").fadeOut(5000);
+
+  $("#tile_1").one("click",function(){
+    judge(tile_1_num);
+    count_display();
+    $("#tile_1").html(tile_1_num);
+  })
+  $("#tile_2").one("click",function(){
+    judge(tile_2_num);
+    count_display();
+    $("#tile_2").html(tile_2_num);
+  })
+  $("#tile_3").one("click",function(){
+    judge(tile_3_num);
+    count_display();
+    $("#tile_3").html(tile_3_num);
+  })
+  $("#tile_4").one("click",function(){
+    judge(tile_4_num);
+    count_display();
+    $("#tile_4").html(tile_4_num);
+  })
+  $("#tile_5").one("click",function(){
+    judge(tile_5_num);
+    count_display();
+    $("#tile_5").html(tile_5_num);
+  })
+  $("#tile_6").one("click",function(){
+    judge(tile_6_num);
+    count_display();
+    $("#tile_6").html(tile_6_num);
+  })
+  $("#tile_7").one("click",function(){
+    judge(tile_7_num);
+    count_display();
+    $("#tile_7").html(tile_7_num);
+  })
+  $("#tile_8").one("click",function(){
+    judge(tile_8_num);
+    count_display();
+    $("#tile_8").html(tile_8_num);
+  })
+  $("#tile_9").one("click",function(){
+    judge(tile_9_num);
+    count_display();
+    $("#tile_9").html(tile_9_num);
+  })
+  $("#tile_10").one("click",function(){
+    judge(tile_10_num);
+    count_display();
+    $("#tile_10").html(tile_10_num);
+  })
+  $("#tile_11").one("click",function(){
+    judge(tile_11_num);
+    count_display();
+    $("#tile_11").html(tile_11_num);
+  })
+  $("#tile_12").one("click",function(){
+    judge(tile_12_num);
+    count_display();
+    $("#tile_12").html(tile_12_num);
+  })
+  $("#tile_13").one("click",function(){
+    judge(tile_13_num);
+    count_display();
+    $("#tile_13").html(tile_13_num);
+  })
+  $("#tile_14").one("click",function(){
+    judge(tile_14_num);
+    count_display();
+    $("#tile_14").html(tile_14_num);
+  })
+  $("#tile_15").one("click",function(){
+    judge(tile_15_num);
+    count_display();
+    $("#tile_15").html(tile_15_num);
+  })
+  $("#tile_16").one("click",function(){
+    judge(tile_16_num);
+    count_display();
+    $("#tile_16").html(tile_16_num);
+  })
+  $("#tile_17").one("click",function(){
+    judge(tile_17_num);
+    count_display();
+    $("#tile_17").html(tile_17_num);
+  })
+  $("#tile_18").one("click",function(){
+    judge(tile_18_num);
+    count_display();
+    $("#tile_18").html(tile_18_num);
+  })
+  $("#tile_19").one("click",function(){
+    judge(tile_19_num);
+    count_display();
+    $("#tile_19").html(tile_19_num);
+  })
+  $("#tile_20").one("click",function(){
+    judge(tile_20_num);
+    count_display();
+    $("#tile_20").html(tile_20_num);
+  })
+  
+
+  function judge(tile_num){
+    if(tile_num == target_num){
+      $("#result").html("正解");
+      if(correct_time != result_num){
+        correct_time += 1;
+        console.log("correct_time=" + correct_time);
+        console.log("result_num=" + result_num);
+      }
+    }else{
+      $("#result").html("間違い");
+      if(correct_time != result_num){
+        mistake_time += 1;
+        console.log("correct_time=" + correct_time);
+        console.log("result_num=" + result_num);
+      }
+    }
+    // tile_numとtarget_numの数字がおかしかったのでchromの検証のconsoleに表示してみた
+    // console.log("tile_num=" + tile_num);
+    // console.log("target_num=" + target_num);
+  }
+
+  function count_display(){
+    $("#correct_time").html(correct_time);
+    $("#mistake_time").html(mistake_time);
+    if(correct_time == result_num && alert_num == 0){
+      alert("「指示」のマス目をすべて開きました。カウントを終了します。再度プレイするにはページをリロードしてください。");
+      alert_num += 1
+    }
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+body{
+    margin:0;
+    padding:0;
+    text-align:left;
+    font-size: 28px;
+}
+header{
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+}
+main{
+    border-bottom:1px solid #ccc;
+}
+footer{
+    background-color: #fff;
+    border-bottom:1px solid #ccc;
+    text-align: center;
+}
+h1{
+    font-size: 25px;
+}
+p{ 
+    font-size:20px;
+    text-align: center;
+    border-bottom:1px solid #fff;
+    height:100px;
+}
+ul{
+    padding: 0;
+    border-top: 1px solid #000000;
+    display:table;  /* 定義 */
+    table-layout: fixed;
+    width:100%;
+}
+li{
+    text-align: center;
+    list-style-type:none;
+    border: 1px solid #666;
+    background-color: #FFF;
+    display:table-cell;  /* 定義 */
+    cursor: pointer;
+}
+li:hover{
+    background: #0066CC;
+    color:#fff;
+}
+.tile_row{
+    display: flex;
+    margin: 0 0 40px 0;
+}
+
+.tile{
+    height: 40px;
+    width: 10%;
+    text-align: center;
+    border-width:2px;
+	border-color: #006DD9;
+    border-style: solid;
+}
+#gamestart_btn{
+        /* displayプロパティでインラインをブロックに変更する */
+        display: block;
+        margin: 20px auto;
+        width: 300px;
+        padding: 21px 0;
+        background-color: #ffd61a;
+        text-align: center;
+        color: #fff;
+        font-size: 1.8rem;
+}
+#gamestart_btn:hover{
+    transform: scale(1.1);
+}
+#Instructions{
+    display: block;
+    text-align: center;
+    height: 40px;
+    margin: 20px auto;
+}
